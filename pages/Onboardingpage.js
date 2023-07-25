@@ -15,11 +15,11 @@ const { height, width } = Dimensions.get("window");
 export default function OnboardingPage() {
   const navigation = useNavigation();
   const handleDone = () => {
-    navigation.navigate("Home");
+    navigation.navigate("welcome");
     setItem("onBoarded", "1");
   };
   const handleSkip = () => {
-    navigation.navigate("Home");
+    navigation.navigate("welcome");
     setItem("onBoarded", "1");
   };
 

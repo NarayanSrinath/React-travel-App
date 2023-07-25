@@ -8,6 +8,10 @@ import HomePage from "../pages/Homepage";
 import OnboardingPage from "../pages/Onboardingpage";
 import { getItem } from "../utiltes/aysncStorage";
 
+import LoginScreen from "../pages/LoginScreen";
+import SignUpscreen from "../pages/SignUpscreen";
+import WelcomeScreen from "../pages/welcomescreen";
+
 export default function Navigation() {
   const [showonBoarding, setShowOnboarding] = useState(null);
   useEffect(() => {
@@ -38,6 +42,9 @@ export default function Navigation() {
         >
           <Stack.Screen name="Home" component={HomePage} />
           <Stack.Screen name="onBoard" component={OnboardingPage} />
+          <Stack.Screen name="welcome" component={WelcomeScreen} />
+          <Stack.Screen name="login" component={LoginScreen} />
+          <Stack.Screen name="signup" component={SignUpscreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -45,11 +52,14 @@ export default function Navigation() {
     return (
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Home"
+          initialRouteName="welcome"
           screenOptions={{ headerShown: false }}
         >
           <Stack.Screen name="Home" component={HomePage} />
           <Stack.Screen name="onBoard" component={OnboardingPage} />
+          <Stack.Screen name="welcome" component={WelcomeScreen} />
+          <Stack.Screen name="login" component={LoginScreen} />
+          <Stack.Screen name="signup" component={SignUpscreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );
