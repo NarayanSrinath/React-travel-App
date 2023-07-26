@@ -1,4 +1,4 @@
-import { View, TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity, Text, Platform } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
@@ -7,13 +7,14 @@ import Icon from "react-native-vector-icons/SimpleLineIcons";
 import Lottie from "lottie-react-native";
 
 export default function WelcomeScreen() {
+  const ios = Platform.OS == "ios";
   const navigation = useNavigation();
   const handleReset = async () => {
     await removeItem("onBoarded");
     navigation.push("onBoard");
   };
   return (
-    <SafeAreaView className="flex-1 bg-pink-100">
+    <SafeAreaView className=" ios ?-mb-2 flex-1 bg-pink-100 :?-mb-3 flex-1 bg-pink-100 ">
       <View className="flex flex-row-reverse px-4 mt-2 ">
         <TouchableOpacity onPress={handleReset} className="justify-items-end">
           <Icon name="logout" size={25} color="#000"></Icon>
