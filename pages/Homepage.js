@@ -1,20 +1,35 @@
-import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from "@react-navigation/native";
-import { removeItem } from "../utiltes/aysncStorage";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function HomePage() {
-  const navigation = useNavigation();
+import { Text, View, StyleSheet, ScrollView } from "react-native";
+import MainHeader from "../components/MainHeader";
+import { colors } from "../constants/theme";
+import ScreenHeader from "../components/Screenheader";
+import TopPlacesCarousal from "../components/TopPlacesCarousel";
+import { PLACES, TOP_PLACES } from "../data";
+import SectionHeader from "../components/SectionHeader";
+import TripList from "../components/Triplist";
 
+const HomePage = () => {
   return (
-    <SafeAreaView className="flex-1  bg-slate-300">
-      <View className="flex flex-row px-4 mt-2 ">
-        <TouchableOpacity className="justify-items-end">
-          <Icon name="menu-open" size={30} color="#000"></Icon>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <MainHeader title="Traveling" />
+      <ScreenHeader mainTitle="Find your" secondTitle="Dream Trip" />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <TopPlacesCarousal list={TOP_PLACES} />
+        <SectionHeader
+          title="Popular Places"
+          ButtonTitle="See All"
+          onPress={() => {}}
+        />
+        <TripList list={PLACES} />
+      </ScrollView>
+    </View>
   );
-}
+};
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.light,
+  },
+});
+export default HomePage;

@@ -64,7 +64,7 @@ export default function SignUpscreen() {
             placeholder="Password"
           />
           <TouchableOpacity
-            onPress={() => navigation.navigate("Home")}
+            onPress={() => navigation.navigate("login")}
             className="py-3 bg-rose-100 rounded-xl "
           >
             <Text className=" text-lg text-gray-700 font-bold text-center ">

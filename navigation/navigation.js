@@ -11,6 +11,8 @@ import { getItem } from "../utiltes/aysncStorage";
 import LoginScreen from "../pages/LoginScreen";
 import SignUpscreen from "../pages/SignUpscreen";
 import WelcomeScreen from "../pages/welcomescreen";
+import TabNavigator from "./TabNavigation";
+import { StatusBar } from "react-native";
 
 export default function Navigation() {
   const [showonBoarding, setShowOnboarding] = useState(null);
@@ -36,11 +38,12 @@ export default function Navigation() {
   if (showonBoarding) {
     return (
       <NavigationContainer>
+        <StatusBar hidden />
         <Stack.Navigator
           initialRouteName="onBoard"
           screenOptions={{ headerShown: false }}
         >
-          <Stack.Screen name="Home" component={HomePage} />
+          <Stack.Screen name="Tab" component={TabNavigator} />
           <Stack.Screen name="onBoard" component={OnboardingPage} />
           <Stack.Screen name="welcome" component={WelcomeScreen} />
           <Stack.Screen name="login" component={LoginScreen} />
@@ -51,11 +54,12 @@ export default function Navigation() {
   } else {
     return (
       <NavigationContainer>
+        <StatusBar hidden />
         <Stack.Navigator
           initialRouteName="welcome"
           screenOptions={{ headerShown: false }}
         >
-          <Stack.Screen name="Home" component={HomePage} />
+          <Stack.Screen name="Tab" component={TabNavigator} />
           <Stack.Screen name="onBoard" component={OnboardingPage} />
           <Stack.Screen name="welcome" component={WelcomeScreen} />
           <Stack.Screen name="login" component={LoginScreen} />
