@@ -6,12 +6,13 @@ import FavouriteScreen from "../pages/favouritescreen";
 import Icon from "../components/icons";
 import { colors, sizes } from "../constants/theme";
 import { StyleSheet, Animated } from "react-native";
+import HomeNavigator from "../navigation/Homenavigator";
 
 const Tab = createBottomTabNavigator();
 const tabs = [
   {
     name: "Home",
-    screen: HomePage,
+    screen: HomeNavigator,
   },
   {
     name: "Search",
@@ -31,6 +32,9 @@ const TabNavigator = () => {
         screenOptions={{
           headerShown: false,
           tabBarShowLabel: false,
+          useNativeDriver: true,
+          gestureEnabled:false,
+          
         }}
       >
         {tabs.map(({ name, screen }, index) => {

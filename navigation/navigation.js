@@ -1,10 +1,7 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
-const Stack = createNativeStackNavigator();
-
+import {NavigationContainer} from '@react-navigation/native'; 
+import { createSharedElementStackNavigator} from 'react-navigation-shared-element';
 import React, { useEffect, useState } from "react";
-import HomePage from "../pages/Homepage";
+
 import OnboardingPage from "../pages/Onboardingpage";
 import { getItem } from "../utiltes/aysncStorage";
 
@@ -13,8 +10,11 @@ import SignUpscreen from "../pages/SignUpscreen";
 import WelcomeScreen from "../pages/welcomescreen";
 import TabNavigator from "./TabNavigation";
 import { StatusBar } from "react-native";
+import DetailsScreen from "../pages/DetailsScreen";
+
 
 export default function Navigation() {
+  const Stack = createSharedElementStackNavigator();
   const [showonBoarding, setShowOnboarding] = useState(null);
   useEffect(() => {
     checkIfAlreadyOnboarded();
@@ -41,10 +41,17 @@ export default function Navigation() {
         <StatusBar hidden />
         <Stack.Navigator
           initialRouteName="onBoard"
-          screenOptions={{ headerShown: false }}
+          screenOptions={{ headerShown: false, 
+            useNativeDriver: true,
+            gestureEnabled:false,}}
         >
           <Stack.Screen name="Tab" component={TabNavigator} />
           <Stack.Screen name="onBoard" component={OnboardingPage} />
+          <Stack.Screen name="details" component={DetailsScreen} options={{useNativeDriver:true,cardStyleInterpolator:({currrent:{progress}})=>({
+            cardStyle:{
+              opacity:progress,
+            }
+          })}}/>
           <Stack.Screen name="welcome" component={WelcomeScreen} />
           <Stack.Screen name="login" component={LoginScreen} />
           <Stack.Screen name="signup" component={SignUpscreen} />
@@ -57,9 +64,11 @@ export default function Navigation() {
         <StatusBar hidden />
         <Stack.Navigator
           initialRouteName="welcome"
-          screenOptions={{ headerShown: false }}
+          screenOptions={{ headerShown: false ,useNativeDriver: true,
+            gestureEnabled:false,}}
         >
           <Stack.Screen name="Tab" component={TabNavigator} />
+          <Stack.Screen name="details" component={DetailsScreen} />
           <Stack.Screen name="onBoard" component={OnboardingPage} />
           <Stack.Screen name="welcome" component={WelcomeScreen} />
           <Stack.Screen name="login" component={LoginScreen} />

@@ -4,27 +4,39 @@ import {
   Text,
   View,
   StyleSheet,
-  Touchable,
+  
   TouchableOpacity,
 } from "react-native";
 import { sizes, spacing, colors, shadow } from "../constants/theme";
 import FavButton from "./Favbutton";
+import { useNavigation } from "@react-navigation/native";
+import { SharedElement } from 'react-navigation-shared-element';
 const CARD_WIDTH = sizes.width / 2 - (spacing.l + spacing.l / 2);
-const CARD_HIGHT = 220;
-const TripList = ({ list }) => {
+const CARD_HEIGHT = 220;
+
+
+const TripList = ({list}) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       {list.map((item, index) => {
         return (
-          <TouchableOpacity style={styles.cardcontainer}>
-            <View style={[styles.card, shadow.light]} key={item.id}>
-              <View style={styles.imageBox}>
-                <Image style={styles.image} source={item.image} />
-              </View>
+          <TouchableOpacity
+            style={styles.cardContainer}
+            key={item.id}
+            onPress={() => {
+              navigation.navigate('details', {trip: item});
+            }}>
+            <View style={[styles.card, shadow.light]}>
+              <SharedElement id={`trip.${item.id}.image`}>
+                <View style={styles.imageBox}>
+                  <Image style={styles.image} source={item.image} />
+                </View>
+              </SharedElement>
               <View style={styles.footer}>
-                <View style={styles.titlebox}>
-                  <Text style={styles.titleText}>{item.title}</Text>
-                  <Text style={styles.locationText}>{item.location}</Text>
+                <View style={styles.titleBox}>
+                  <Text style={styles.title}>{item.title}</Text>
+                  <Text style={styles.location}>{item.location}</Text>
                 </View>
                 <FavButton />
               </View>
@@ -38,50 +50,49 @@ const TripList = ({ list }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
-  cardcontainer: {
+  cardContainer: {
     marginLeft: spacing.l,
     marginBottom: spacing.l,
   },
   card: {
     width: CARD_WIDTH,
-    height: CARD_HIGHT,
+    height: CARD_HEIGHT,
     backgroundColor: colors.white,
     borderRadius: sizes.radius,
   },
-  image: {
-    width: CARD_WIDTH,
-    height: CARD_HIGHT - 60,
-    resizeMode: "cover",
-  },
   imageBox: {
     width: CARD_WIDTH,
-    height: CARD_HIGHT - 60,
-    borderTopRightRadius: sizes.radius,
+    height: CARD_HEIGHT - 60,
     borderTopLeftRadius: sizes.radius,
-    overflow: "hidden",
+    borderTopRightRadius: sizes.radius,
+    overflow: 'hidden',
+  },
+  image: {
+    width: CARD_WIDTH,
+    height: CARD_HEIGHT - 60,
+    resizeMode: 'cover',
   },
   footer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginTop: 6,
+    marginLeft: 16,
     marginRight: 10,
-    marginLeft: 10,
   },
-  titlebox: {
+  titleBox: {
     flex: 1,
   },
-  titleText: {
+  title: {
     marginVertical: 4,
     fontSize: sizes.body,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: colors.primary,
   },
-  locationText: {
+  location: {
     fontSize: sizes.body,
-
     color: colors.lightGray,
   },
 });
